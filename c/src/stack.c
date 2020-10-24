@@ -1,28 +1,26 @@
 #include <assert.h>
+#include <stdlib.h>
+
 #include "stack.h"
 
-const int N = 32;
-
-struct STACK {
-  const T* array[N];
-  int top;
-} stack;
-
-void STACK_init(const int N) {
-  stack.top = -1;
+STACK STACK_init(const unsigned int size) {
+  STACK stack = { 
+    .size = size,
+    .array = malloc(size * sizeof(T)),
+    .top = -1 
+  };
+  return stack;
 }
 
-void STACK_push(const T* element) {
-  assert(stack.top < N - 1);
-  ++stack.top;
-  stack.array[stack.top] = element;
+void STACK_push(STACK* stack, const T* element) {
+  assert(stack->top < stack->size - 1);
+  stack->array[++stack->top] = *element;
 }
 
-const T* STACK_pop() {
-  assert(!STACK_is_empty());
-  unsigned int top = stack.top;
-  --stack.top;
-  return stack.array[top];
+void STACK_pop(STACK* stack, T* result) {
+  if (!STACK_is_empty(stack)) {
+    result = &stack->array[stack->top--];
+  }
 }
 
-int STACK_is_empty() { return stack.top == -1; }
+int STACK_is_empty(const STACK* stack) { return stack->top == -1; }

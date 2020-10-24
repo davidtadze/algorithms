@@ -5,19 +5,20 @@
 namespace algorithms {
 
 /**
- *  a number of different possible Stack policies (and thus implementation)
- * comes to mind:
- *
+ *  a number of different possible policies (and thus implementations)
+ *  comes to mind:
  *  1. size: (a) fixed size (b) resizable
  *  2. underlying data structure: (a) array (b) vector (c) queue (d) linked list
- *  3. error handling: (a) no error handling (b) assert (c) throw
- *  4. multithreading
+ *  3. error handling: (a) no error handling (b) exception-neutral (c) exception-safe
+ *  4. multithreading etc.
  *
- *  the simplest combination (and thus best for first implementation) seems to
- * be fixed size, array based, no error handling, single threaded Stack
+ *  that being said:
+ *  1. the simplest combination is the best candidate for first implementation,
+ *  and that seems to be% fixed size, array based, no error handling stack
+ *  2. though a more convinient combination seems to be%
+ *  resizable, vector based, exception-neutral stack
  *
- *  though a more convinient combination seems to be
- *  resizable, vector based, throwing, single threaded Stack
+ *  todo: read about an elegant way to implement different policies
  */
 template <typename T>
 class Stack {
@@ -27,11 +28,11 @@ class Stack {
  public:
   void push(const T& element) { vector_.push_back(element); }
 
-  auto pop() -> const T& {
-    if (is_empty()) {
-      throw std::runtime_error("stack is empty");
+  void pop(T& result) {
+    if (!is_empty()) {
+      result = vector_.back();
+      vector_.pop_back();
     }
-    return vector_.pop_back();
   }
 
   auto is_empty() -> bool { return vector_.empty(); }
