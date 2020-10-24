@@ -1,9 +1,12 @@
-#include <array>
+#include <exception>
+#include <stdexcept>
+#include <vector>
 
 namespace algorithms {
 
 /**
- *  a number of different possible Stack policies (and thus implementation) comes to mind:
+ *  a number of different possible Stack policies (and thus implementation)
+ * comes to mind:
  *
  *  1. size: (a) fixed size (b) resizable
  *  2. underlying data structure: (a) array (b) vector (c) queue (d) linked list
@@ -11,29 +14,27 @@ namespace algorithms {
  *  4. multithreading
  *
  *  the simplest combination (and thus best for first implementation) seems to
- *  be fixed size, array based, no error handling, single threaded Stack
+ * be fixed size, array based, no error handling, single threaded Stack
+ *
+ *  though a more convinient combination seems to be
+ *  resizable, vector based, throwing, single threaded Stack
  */
-template <typename T, const int N>
+template <typename T>
 class Stack {
  private:
-  std::array<T, N> array_{};
-  int top_ = -1;
+  std::vector<T> vector_{};
 
  public:
-  void push(const T& element) {
-    assert(top_ < N - 1);
-    ++top_;
-    array_[top_] = element;
-  }
+  void push(const T& element) { vector_.push_back(element); }
 
   auto pop() -> const T& {
-    assert(!is_empty());
-    int top = top_;
-    --top_;
-    return array_[top];
+    if (is_empty()) {
+      throw std::runtime_error("stack is empty");
+    }
+    return vector_.pop_back();
   }
 
-  auto is_empty() -> bool { return top_ == -1; }
+  auto is_empty() -> bool { return vector_.empty(); }
 };
 
 }  // namespace algorithms
