@@ -1,5 +1,4 @@
 #include <array>
-#include <cstddef>
 
 namespace algorithms {
 
@@ -14,26 +13,27 @@ namespace algorithms {
  *  the simplest combination (and thus best for first implementation) seems to
  *  be fixed size, array based, no error handling, single threaded Stack
  */
-template <typename T, std::size_t N>
+template <typename T, const int N>
 class Stack {
  private:
   std::array<T, N> array_{};
-  std::size_t top_ = 0;
+  int top_ = -1;
 
  public:
   void push(const T& element) {
-    assert(top_ < N);
-    array_[top_] = element;
+    assert(top_ < N - 1);
     ++top_;
+    array_[top_] = element;
   }
 
   auto pop() -> const T& {
     assert(!is_empty());
+    int top = top_;
     --top_;
-    return array_[top_];
+    return array_[top];
   }
 
-  auto is_empty() -> bool { return top_ == 0; }
+  auto is_empty() -> bool { return top_ == -1; }
 };
 
 }  // namespace algorithms
