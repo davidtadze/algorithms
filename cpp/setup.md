@@ -72,7 +72,7 @@ FormatStyle: google
 
 ## .gitignore
 
-don't forget to add the following lines to default github  `.gitignore`:
+don't forget to add the following lines to  `.gitignore`:
 
 ```
 .DS_Store
