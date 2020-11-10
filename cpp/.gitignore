@@ -1,6 +1,7 @@
 .DS_Store
 
 build/*
+.cache/*
 
 .clangd
 .clang-tidy

@@ -9,7 +9,8 @@ namespace algorithms {
  *  comes to mind:
  *  1. size: (a) fixed size (b) resizable
  *  2. underlying data structure: (a) array (b) vector (c) queue (d) linked list
- *  3. error handling: (a) no error handling (b) exception-neutral (c) exception-safe
+ *  3. error handling: (a) no error handling (b) exception-neutral (c)
+ * exception-safe
  *  4. multithreading etc.
  *
  *  that being said:
