@@ -6,17 +6,6 @@
 
 namespace algorithms {
 
-/**
- *  this function actually works only with numeric types.
- *  an example of a better is to provide a T.random() function
- */
-template <typename T>
-void fill_with_random_numbers(T* array, int n) {
-  for (int i = 0; i < n; ++i) {
-    array[i] = rand();
-  }
-}
-
 template <typename T>
 void print(T* array, int n) {
   std::cout << "{ ";
@@ -34,6 +23,23 @@ auto are_equal(T* array_a, T* array_b, int n) -> bool {
     }
   }
   return true;
+}
+
+auto calc_right(int left, int end) -> int {
+  return left + (end - left) / 2 + (end - left) % 2;
+}
+
+auto calc_size(int left, int end) -> int {
+  return end - left + 1;
+}
+
+template <typename T>
+auto copy(T* array, int left, int right) -> T* {
+  T* arr = new T[calc_size(left, right)];
+  for(int i = 0; i < calc_size(left, right); ++i) {
+    arr[i] = array[left + i];
+  }
+  return arr;
 }
 
 }  // namespace algorithms
